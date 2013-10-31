@@ -1,0 +1,31 @@
+加入log4..logger.org.springframework.test.context=debug打印测试日志
+
+mysql中desc,order为关键字
+
+只有使用BigDecimal类型时，precision = 10, scale = 2才起作用。
+如果使用columnDefinition定义类型(@Column(columnDefinition="decimal"))，
+则需要自己定义精度，scale不起作用。
+同理，使用Double和Float类型时MySQL中生成的是double和float，于是也不会起作用。
+
+在测试代码中必须使用annotation注入，xml注入有问题。
+@Autowired,@Resource写在变量名上时，不经过set方法注入（可以不写set方法），破坏private封装性。
+
+NoSuchMethodError: org.slf4j.helpers.MessageFormatter.format
+错误原因:slf4j-api版本不对
+
+spring3.1.1整合hibernate4，启动contextLoader报错
+ClassNotFoundException: org.hibernate.util.DTDEntityResolver
+错误原因：jar包冲突，换成hibernate3错误解决
+
+hibernate3中delete方法删除一个对象时，delete(object),如果object实体中有不能为空的字段，而delete的object中
+该字段没设值，会报错：
+not-null property references a null or transient value
+在删除的时候不能new一个实体，只设置id，然后删除。（hibernate4中可以）
+解决办法：在实体中去掉nullable=false，或者在删除的时候设置非空字段的值。
+
+struts2和spring整合:
+只需要在struts.xml中加入<constant name="struts.objectFactory" value="spring" />即可
+在struts.xml中配置的action，spring会自动注入依赖的service，service需要提供set方法。
+不需要在action上加@Component和@Scope,也不需要在service上加@Resource，spring会自动完成！
+
+log4j输出级别DEBUG、INFO、WARN、ERROR和FATAL

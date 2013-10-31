@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- struts2委托spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true" />
+
+	<!-- 处理form在post方式提交时的中文乱码问题（如果在url中直接传中文，这种方式处理不了，必须手动转码） -->
+	<constant name="struts.i18n.encoding" value="gbk" />
+
+	<!-- 处理anction的后缀名,如果有后缀名必须在这里添加  -->
+	<!-- 在web.xml中进行第一层拦截，这里进行第二次拦截 -->
+	<!-- 必须两次都拦截到才能匹配到action -->
+	<constant name="struts.action.extension" value="do,msp" />
+	
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="register" class="com.my.shopping.action.UserAction"
+			method="createUser">
+			<result name="success">
+				success.jsp
+			</result>
+			<result name="error">
+				error.jsp
+			</result>
+		</action>
+		<action name="getData" class="com.my.shopping.action.UserAction"
+			method="getData">
+		</action>
+		<action name="queryUser" class="com.my.shopping.action.UserAction"
+			method="queryUser">
+		</action>
+	</package>
+
+</struts>
